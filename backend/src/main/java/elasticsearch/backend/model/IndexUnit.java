@@ -21,23 +21,23 @@ public class IndexUnit {
     @Field(type = FieldType.Text, store = true)
     private String filename;
 
-    @Field(type = FieldType.Text, store = true)
+    @Field(type = FieldType.Text, store = true, analyzer = ANALYZER_TYPE)
     private String name;
 
-    @Field(type = FieldType.Text, store = true)
+    @Field(type = FieldType.Text, store = true, analyzer = ANALYZER_TYPE)
     private String surname;
 
     @Field(type = FieldType.Integer, store = true)
     private int degreeOfEducation;
 
-    @Field(type = FieldType.Text, store = true)
+    @Field(type = FieldType.Text, store = true, analyzer = ANALYZER_TYPE)
     private String fileContent;
 
     @Field(type = FieldType.Text, store = true)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
     private String fileModificationDate;
 
-    @Field(type = FieldType.Text, store = true)
+    @Field(type = FieldType.Text, store = true, analyzer = ANALYZER_TYPE)
     private String locationName;
 
     @GeoPointField
