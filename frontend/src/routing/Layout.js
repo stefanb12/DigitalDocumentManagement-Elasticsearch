@@ -58,7 +58,7 @@ export default function Layout(props) {
             <div class="card-box bg-orange" onClick={navigateToGeoLocationPage}>
               <div class="inner">
                 <h3> Geo Location </h3>
-                <p> Search applicants location </p>
+                <p> Search by location radius </p>
               </div>
               <div class="icon">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -83,8 +83,8 @@ export default function Layout(props) {
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-lg-3 col-sm-6">{props.children}</div>
+        <div>
+          <div>{props.children}</div>
         </div>
       </div>
       <div class="col-md-12">
