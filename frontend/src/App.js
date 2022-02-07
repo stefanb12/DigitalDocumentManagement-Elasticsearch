@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import ApplicationContainer from "./containers/ApplicationContainer";
+import SearchContainer from "./containers/SearchContainer";
+import GeoLocationSearchContainer from "./containers/GeoLocationSearchContainer";
+import StatisticsContainer from "./containers/StatisticsContainer";
+import NotFoundPage from "./pages/NotFoundPage";
+import Layout from "./routing/Layout";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Layout>
+        <Switch>
+          <Redirect exact from="/" to="/application" />
+          <Route path="/application" component={ApplicationContainer} />
+          <Route path="/search" component={SearchContainer} />
+          <Route
+            path="/geo-location-search"
+            component={GeoLocationSearchContainer}
+          />
+          <Route path="/statistics" component={StatisticsContainer} />
+          <Route path="/*" component={NotFoundPage} />
+        </Switch>
+      </Layout>
+    </Router>
   );
 }
 
