@@ -1,7 +1,15 @@
 package elasticsearch.backend.model;
 
+import elasticsearch.backend.model.enumeration.DegreeOfEducation;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name="cv_applications")
 public class CVApplication {
@@ -23,68 +31,9 @@ public class CVApplication {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "file_location", nullable = false)
-    private String fileLocation;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Column(name = "degree_of_education", nullable = false)
     private DegreeOfEducation degreeOfEducation;
 
-    public CVApplication() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getFileLocation() {
-        return fileLocation;
-    }
-
-    public void setFileLocation(String fileLocation) {
-        this.fileLocation = fileLocation;
-    }
-
-    public DegreeOfEducation getDegreeOfEducation() {
-        return degreeOfEducation;
-    }
-
-    public void setDegreeOfEducation(DegreeOfEducation degreeOfEducation) {
-        this.degreeOfEducation = degreeOfEducation;
-    }
+    @Column(name = "filename", nullable = false)
+    private String filename;
 }

@@ -1,6 +1,7 @@
 package elasticsearch.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import elasticsearch.backend.model.enumeration.DegreeOfEducation;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -11,7 +12,7 @@ import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 @Document(indexName = IndexUnit.INDEX_NAME, shards = 1, replicas = 0)
 public class IndexUnit {
 
-    public static final String INDEX_NAME = "applications";
+    public static final String INDEX_NAME = "cv-applications";
     public static final String TYPE_NAME = "cv";
 
     public static final String DATE_PATTERN = "yyyy-MM-dd";
@@ -27,8 +28,8 @@ public class IndexUnit {
     @Field(type = FieldType.Text, store = true, analyzer = ANALYZER_TYPE)
     private String surname;
 
-    @Field(type = FieldType.Integer, store = true)
-    private int degreeOfEducation;
+    @Field(type = FieldType.Text, store = true)
+    private DegreeOfEducation degreeOfEducation;
 
     @Field(type = FieldType.Text, store = true, analyzer = ANALYZER_TYPE)
     private String fileContent;
@@ -36,9 +37,6 @@ public class IndexUnit {
     @Field(type = FieldType.Text, store = true)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
     private String fileModificationDate;
-
-    @Field(type = FieldType.Text, store = true, analyzer = ANALYZER_TYPE)
-    private String locationName;
 
     @GeoPointField
     private GeoPoint location;
@@ -86,11 +84,11 @@ public class IndexUnit {
         this.surname = surname;
     }
 
-    public int getDegreeOfEducation() {
+    public DegreeOfEducation getDegreeOfEducation() {
         return degreeOfEducation;
     }
 
-    public void setDegreeOfEducation(int degreeOfEducation) {
+    public void setDegreeOfEducation(DegreeOfEducation degreeOfEducation) {
         this.degreeOfEducation = degreeOfEducation;
     }
 
@@ -108,14 +106,6 @@ public class IndexUnit {
 
     public void setFileModificationDate(String fileModificationDate) {
         this.fileModificationDate = fileModificationDate;
-    }
-
-    public String getLocationName() {
-        return locationName;
-    }
-
-    public void setLocationName(String locationName) {
-        this.locationName = locationName;
     }
 
     public GeoPoint getLocation() {

@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Date;
 
 public class PDFHandler implements DocumentHandler{
+
     @Override
     public IndexUnit getIndexUnit(File file) {
         IndexUnit retVal = new IndexUnit();
@@ -34,7 +35,6 @@ public class PDFHandler implements DocumentHandler{
         } catch (IOException e) {
             System.out.println("Greksa pri konvertovanju dokumenta u pdf");
         }
-
         return retVal;
     }
 

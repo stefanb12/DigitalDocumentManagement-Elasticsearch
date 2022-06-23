@@ -3,18 +3,17 @@ package elasticsearch.backend.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class UploadModel {
+public class ResultData {
     private String name;
     private String surname;
     private String email;
     private String address;
     private String degreeOfEducation;
-    private Double latitude;
-    private Double longitude;
-    private MultipartFile file;
+    private String filename;
+    private String highlight;
+    private String location;
 }
