@@ -1,7 +1,6 @@
 package elasticsearch.backend.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name="degree_of_educations")
@@ -17,9 +16,6 @@ public class DegreeOfEducation {
 
     @Column(name = "name", nullable = false)
     private String name;
-
-    @OneToMany(mappedBy = "degreeOfEducation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<CVApplication> cvApplications;
 
     public DegreeOfEducation() {
     }
@@ -46,13 +42,5 @@ public class DegreeOfEducation {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<CVApplication> getCvApplications() {
-        return cvApplications;
-    }
-
-    public void setCvApplications(List<CVApplication> cvApplications) {
-        this.cvApplications = cvApplications;
     }
 }

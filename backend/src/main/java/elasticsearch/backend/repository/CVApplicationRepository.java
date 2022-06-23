@@ -4,7 +4,9 @@ import elasticsearch.backend.model.CVApplication;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CVApplicationRepository extends JpaRepository<CVApplication, Long> {
-    CVApplication findById(long id);
+    Optional<CVApplication> findById(Long id);
 }
