@@ -16,22 +16,28 @@ public class IndexUnit {
     public static final String TYPE_NAME = "cv";
 
     public static final String DATE_PATTERN = "yyyy-MM-dd";
-    public static final String ANALYZER_TYPE = "serbian";
+    public static final String SERBIAN_ANALYZER = "serbian";
 
     @Id
     @Field(type = FieldType.Text, store = true)
     private String filename;
 
-    @Field(type = FieldType.Text, store = true, analyzer = ANALYZER_TYPE)
+    @Field(type = FieldType.Text, store = true, analyzer = SERBIAN_ANALYZER)
     private String name;
 
-    @Field(type = FieldType.Text, store = true, analyzer = ANALYZER_TYPE)
+    @Field(type = FieldType.Text, store = true, analyzer = SERBIAN_ANALYZER)
     private String surname;
+
+    @Field(type = FieldType.Text, index = false, store = true)
+    private String email;
+
+    @Field(type = FieldType.Text, index = false, store = true)
+    private String address;
 
     @Field(type = FieldType.Text, store = true)
     private DegreeOfEducation degreeOfEducation;
 
-    @Field(type = FieldType.Text, store = true, analyzer = ANALYZER_TYPE)
+    @Field(type = FieldType.Text, store = true, analyzer = SERBIAN_ANALYZER)
     private String fileContent;
 
     @Field(type = FieldType.Text, store = true)
@@ -39,7 +45,7 @@ public class IndexUnit {
     private String fileModificationDate;
 
     @GeoPointField
-    private GeoPoint location;
+    private GeoPoint geoPoint;
 
     public IndexUnit() {
     }
@@ -56,8 +62,8 @@ public class IndexUnit {
         return DATE_PATTERN;
     }
 
-    public static String getAnalyzerType() {
-        return ANALYZER_TYPE;
+    public static String getSerbianAnalyzer() {
+        return SERBIAN_ANALYZER;
     }
 
     public String getFilename() {
@@ -84,6 +90,22 @@ public class IndexUnit {
         this.surname = surname;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public DegreeOfEducation getDegreeOfEducation() {
         return degreeOfEducation;
     }
@@ -108,11 +130,11 @@ public class IndexUnit {
         this.fileModificationDate = fileModificationDate;
     }
 
-    public GeoPoint getLocation() {
-        return location;
+    public GeoPoint getGeoPoint() {
+        return geoPoint;
     }
 
-    public void setLocation(GeoPoint location) {
-        this.location = location;
+    public void setGeoPoint(GeoPoint geoPoint) {
+        this.geoPoint = geoPoint;
     }
 }

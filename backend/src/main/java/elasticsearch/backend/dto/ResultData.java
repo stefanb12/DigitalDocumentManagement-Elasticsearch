@@ -1,5 +1,6 @@
 package elasticsearch.backend.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ResultData {
     private String name;
     private String surname;
@@ -15,5 +17,4 @@ public class ResultData {
     private String degreeOfEducation;
     private String filename;
     private String highlight;
-    private String location;
 }

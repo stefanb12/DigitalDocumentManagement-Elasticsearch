@@ -47,8 +47,10 @@ public class IndexService {
             indexUnit.setFilename(nameParts[nameParts.length - 1]);
             indexUnit.setName(model.getName());
             indexUnit.setSurname(model.getSurname());
+            indexUnit.setEmail(model.getEmail());
+            indexUnit.setAddress(model.getAddress());
             indexUnit.setDegreeOfEducation(DegreeOfEducation.valueOf(model.getDegreeOfEducation()));
-            indexUnit.setLocation(new GeoPoint(model.getLatitude(),model.getLongitude()));
+            indexUnit.setGeoPoint(new GeoPoint(model.getLatitude(),model.getLongitude()));
             operations.save(indexUnit);
 
             CVApplication cvApplication = new CVApplication();
