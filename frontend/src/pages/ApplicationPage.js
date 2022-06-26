@@ -1,25 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/css/applicationStyle.css";
+import { convertDegreeOfEducation } from "../util/Converter";
 
-export default function ApplicationPage() {
+export default function ApplicationPage(props) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [degreeOfEducation, setDegreeOfEducation] = useState(0);
+  const [cvDocument, setCvDocument] = useState(null);
+  const [latitude, setLatitude] = useState(0.0);
+  const [longitude, setLongitude] = useState(0.0);
   const [formErrors, setFormErrors] = useState({
     name: "",
     surname: "",
     email: "",
     address: "",
     degreeOfEducation: "",
+    cvDocument: "",
   });
   const [nameValid, setNameValid] = useState(false);
   const [surnameValid, setSurnameValid] = useState(false);
   const [emailValid, setEmailValid] = useState(false);
   const [addressValid, setAddressValid] = useState(false);
   const [degreeOfEducationValid, setDegreeOfEducationValid] = useState(false);
+  const [cvDocumentValid, setCvDocumentValid] = useState(false);
   const [formValid, setFormValid] = useState(false);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
+    });
+  }, []);
 
   const validateField = (fieldName, value) => {
     let fieldValidationErrors = formErrors;
@@ -28,6 +41,7 @@ export default function ApplicationPage() {
     let isEmailValid = emailValid;
     let isAddressValid = addressValid;
     let isDegreeOfEducationValid = degreeOfEducationValid;
+    let isCvDocumentValid = cvDocumentValid;
 
     switch (fieldName) {
       case "name":
@@ -56,6 +70,12 @@ export default function ApplicationPage() {
           ? ""
           : "Degree of education must be between 1 and 8";
         break;
+      case "cvDocument":
+        isCvDocumentValid = value !== undefined;
+        fieldValidationErrors.cvDocument = isCvDocumentValid
+          ? ""
+          : "CV document is empty";
+        break;
       default:
         break;
     }
@@ -65,13 +85,30 @@ export default function ApplicationPage() {
     setEmailValid(isEmailValid);
     setAddressValid(isAddressValid);
     setDegreeOfEducationValid(isDegreeOfEducationValid);
+    setCvDocumentValid(isCvDocumentValid);
     setFormValid(
       isNameValid &&
         isSurnameValid &&
         isEmailValid &&
         isAddressValid &&
-        isDegreeOfEducationValid
+        isDegreeOfEducationValid &&
+        isCvDocumentValid
     );
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const cvApplication = {
+      name,
+      surname,
+      email,
+      address,
+      degreeOfEducation: convertDegreeOfEducation(degreeOfEducation),
+      file: cvDocument,
+      latitude,
+      longitude,
+    };
+    props.saveCvApplication(cvApplication);
   };
 
   return (
@@ -89,9 +126,14 @@ export default function ApplicationPage() {
             </div>
             <div className="portlet-body">
               <div className="tab-content">
-                <div role="tabpanel" className="tab-pane active" id="home">
+                <form
+                  role="tabpanel"
+                  className="tab-pane active"
+                  id="home"
+                  onSubmit={handleSubmit}
+                >
                   <div className="form-group">
-                    <label for="inputName">
+                    <label>
                       Name
                       <em style={{ color: "red" }}>*</em>
                     </label>
@@ -113,7 +155,7 @@ export default function ApplicationPage() {
                     <span style={{ color: "red" }}>{formErrors.name}</span>
                   </div>
                   <div className="form-group">
-                    <label for="inputSurname">
+                    <label>
                       Surname <em style={{ color: "red" }}>*</em>
                     </label>
                     <input
@@ -134,7 +176,7 @@ export default function ApplicationPage() {
                     <span style={{ color: "red" }}>{formErrors.surname}</span>
                   </div>
                   <div className="form-group">
-                    <label for="inputEmail">
+                    <label>
                       Email <em style={{ color: "red" }}>*</em>
                     </label>
                     <input
@@ -155,7 +197,7 @@ export default function ApplicationPage() {
                     <span style={{ color: "red" }}>{formErrors.email}</span>
                   </div>
                   <div className="form-group">
-                    <label for="inputAddress">
+                    <label>
                       Address <em style={{ color: "red" }}>*</em>
                     </label>
                     <input
@@ -176,7 +218,7 @@ export default function ApplicationPage() {
                     <span style={{ color: "red" }}>{formErrors.address}</span>
                   </div>
                   <div className="form-group">
-                    <label for="inputDegreeOfEducation">
+                    <label>
                       Degree of education <em style={{ color: "red" }}>*</em>
                     </label>
                     <input
@@ -201,26 +243,36 @@ export default function ApplicationPage() {
                       {formErrors.degreeOfEducation}
                     </span>
                   </div>
-                  <label for="cvInputFile">
+                  <label>
                     CV (PDF) <em style={{ color: "red" }}>*</em>
                   </label>
                   <div className="form-group">
-                    <input type="file" id="cvInputFile" />
-                  </div>
-                  <label for="letterInputFile">
-                    Letter (PDF) <em style={{ color: "red" }}>*</em>
-                  </label>
-                  <div className="form-group">
-                    <input type="file" />
+                    <input
+                      type="file"
+                      id="cvInputFile"
+                      name="cvDocument"
+                      // value={cvDocument}
+                      onChange={(event) => {
+                        const name = event.target.name;
+                        const file = event.target.files[0];
+                        validateField(name, file);
+                        setCvDocument(file);
+                      }}
+                    />
+                    <br />
+                    <span style={{ color: "red" }}>
+                      {formErrors.cvDocument}
+                    </span>
                   </div>
                   <button
                     className="btn btn-outline-primary btn-block"
                     style={{ marginTop: 25 }}
                     disabled={!formValid}
+                    type="submit"
                   >
                     Confirm
                   </button>
-                </div>
+                </form>
               </div>
             </div>
           </div>
