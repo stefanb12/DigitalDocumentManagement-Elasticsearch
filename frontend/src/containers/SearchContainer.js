@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import SearchResult from "../components/search/SearchResult";
 import SearchPage from "../pages/SearchPage";
 import SearchService from "../services/SearchService";
 
 export default function SearchContainer() {
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [searchTime, setSearchTime] = useState("");
 
   const handleSearch = async (queryData) => {
-    // console.log(queryData);
     let startTime = Date.now();
     SearchService.search(queryData)
       .then((response) => {
-        setSearchResult(response.data);
+        setSearchResults(response.data);
         calculateSearchTime(startTime);
       })
       .catch((error) => {
@@ -28,13 +26,10 @@ export default function SearchContainer() {
   };
 
   return (
-    <>
-      <SearchPage search={handleSearch} />
-      {searchResult.length > 0 ? (
-        <SearchResult searchResult={searchResult} searchTime={searchTime} />
-      ) : (
-        <></>
-      )}
-    </>
+    <SearchPage
+      search={handleSearch}
+      searchResults={searchResults}
+      searchTime={searchTime}
+    />
   );
 }

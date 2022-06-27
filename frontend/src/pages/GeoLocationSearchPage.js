@@ -1,63 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/css/searchStyle.css";
+import GeoSearchInputField from "../components/geo-search/GeoSearchInputField";
+import SearchResults from "../components/search-result/SearchResults";
 
-export default function GeoLocationSearchPage() {
+export default function GeoLocationSearchPage(props) {
+  const [searchResults, setSearchResults] = useState(props.searchResults);
+  const [searchTime, setSearchTime] = useState(props.searchTime);
+
+  useEffect(() => {
+    setSearchResults(props.searchResults);
+    setSearchTime(props.searchTime);
+  }, [props]);
+
+  const handleGeoSearch = (queryData) => {
+    props.geoSearch(queryData);
+  };
+
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-12 card-margin">
-          <div className="card search-form">
-            <div className="card-body p-0">
-              <form id="search-form">
-                <div className="row">
-                  <div className="col-12">
-                    <div className="row no-gutters">
-                      <div className="col-lg-3 col-md-3 col-sm-12 p-0">
-                        <select
-                          className="form-control"
-                          id="exampleFormControlSelect1"
-                        >
-                          <option>Beograd</option>
-                          <option>Novi Sad</option>
-                          <option>Subotica</option>
-                        </select>
-                      </div>
-                      <div className="col-lg-8 col-md-6 col-sm-12 p-0">
-                        <input
-                          type="number"
-                          placeholder="Distance in kilometers"
-                          className="form-control"
-                          id="search"
-                          name="search"
-                        />
-                      </div>
-                      <div className="col-lg-1 col-md-3 col-sm-12 p-0">
-                        <button className="btn btn-base">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="feather feather-search"
-                          >
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <>
+      <GeoSearchInputField geoSearch={handleGeoSearch} />
+      {searchResults.length > 0 ? (
+        <SearchResults searchResults={searchResults} searchTime={searchTime} />
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
