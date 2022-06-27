@@ -57,8 +57,24 @@ export default function SearchInputField(props) {
   };
 
   const handleChangeSearchValue = (event) => {
-    props.changeSearchValue(event.target.value);
-    setSearchValue(event.target.value);
+    if (selectedFieldName === "degreeOfEducation") {
+      let currentSearchValue = searchValue;
+      if (currentSearchValue === "") {
+        currentSearchValue = "1";
+      } else {
+        currentSearchValue = event.target.value.toString();
+      }
+      let convertedValue = convertDegreeOfEducation(currentSearchValue);
+      if (convertedValue === "invalid") {
+        alert("Degree of education must be between 1 and 8");
+      } else {
+        props.changeSearchValue(convertedValue);
+        setSearchValue(currentSearchValue);
+      }
+    } else {
+      props.changeSearchValue(event.target.value);
+      setSearchValue(event.target.value);
+    }
   };
 
   const handleSearch = () => {

@@ -194,6 +194,7 @@ export default function SearchPage(props) {
     selectedBoolOperator
   ) => {
     let currentNumber = numberOfSearchFields;
+    const queryData = [];
     let searchData = {
       fieldName: selectedFieldName,
       value: searchValue,
@@ -201,27 +202,99 @@ export default function SearchPage(props) {
     };
     if (currentNumber === 1) {
       setFirstSearchValues(searchData);
+      if (
+        secondSearchValues.fieldName !== "" &&
+        secondSearchValues.value !== "" &&
+        secondSearchValues.operator !== ""
+      ) {
+        queryData.push(secondSearchValues);
+      }
+      if (
+        thirdSearchValues.fieldName !== "" &&
+        thirdSearchValues.value !== "" &&
+        thirdSearchValues.operator !== ""
+      ) {
+        queryData.push(thirdSearchValues);
+      }
+      if (
+        fourthSearchValues.fieldName !== "" &&
+        fourthSearchValues.value !== "" &&
+        fourthSearchValues.operator !== ""
+      ) {
+        queryData.push(fourthSearchValues);
+      }
     } else if (currentNumber === 2) {
       setSecondSearchValues(searchData);
+      if (
+        firstSearchValues.fieldName !== "" &&
+        firstSearchValues.value !== "" &&
+        firstSearchValues.operator !== ""
+      ) {
+        queryData.push(firstSearchValues);
+      }
+      if (
+        thirdSearchValues.fieldName !== "" &&
+        thirdSearchValues.value !== "" &&
+        thirdSearchValues.operator !== ""
+      ) {
+        queryData.push(thirdSearchValues);
+      }
+      if (
+        fourthSearchValues.fieldName !== "" &&
+        fourthSearchValues.value !== "" &&
+        fourthSearchValues.operator !== ""
+      ) {
+        queryData.push(fourthSearchValues);
+      }
     } else if (currentNumber === 3) {
       setThirdSearchValues(searchData);
+      if (
+        firstSearchValues.fieldName !== "" &&
+        firstSearchValues.value !== "" &&
+        firstSearchValues.operator !== ""
+      ) {
+        queryData.push(firstSearchValues);
+      }
+      if (
+        secondSearchValues.fieldName !== "" &&
+        secondSearchValues.value !== "" &&
+        secondSearchValues.operator !== ""
+      ) {
+        queryData.push(secondSearchValues);
+      }
+      if (
+        fourthSearchValues.fieldName !== "" &&
+        fourthSearchValues.value !== "" &&
+        fourthSearchValues.operator !== ""
+      ) {
+        queryData.push(fourthSearchValues);
+      }
     } else if (currentNumber === 4) {
       setFourthSearchValues(searchData);
+      if (
+        firstSearchValues.fieldName !== "" &&
+        firstSearchValues.value !== "" &&
+        firstSearchValues.operator !== ""
+      ) {
+        queryData.push(firstSearchValues);
+      }
+      if (
+        secondSearchValues.fieldName !== "" &&
+        secondSearchValues.value !== "" &&
+        secondSearchValues.operator !== ""
+      ) {
+        queryData.push(secondSearchValues);
+      }
+      if (
+        thirdSearchValues.fieldName !== "" &&
+        thirdSearchValues.value !== "" &&
+        thirdSearchValues.operator !== ""
+      ) {
+        queryData.push(thirdSearchValues);
+      }
     }
-    const queryData = [];
     queryData.push(searchData);
-    if (firstSearchValues.fieldName !== "") {
-      queryData.push(firstSearchValues);
-    }
-    if (secondSearchValues.fieldName !== "") {
-      queryData.push(secondSearchValues);
-    }
-    if (thirdSearchValues.fieldName !== "") {
-      queryData.push(thirdSearchValues);
-    }
-    if (fourthSearchValues.fieldName !== "") {
-      queryData.push(fourthSearchValues);
-    }
+
     props.search(queryData);
   };
 
