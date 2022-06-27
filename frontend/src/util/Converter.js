@@ -26,6 +26,7 @@ export function convertDegreeOfEducation(value) {
       convertedValue = "VII";
       break;
     default:
+      convertedValue = "invalid";
       break;
   }
   return convertedValue;

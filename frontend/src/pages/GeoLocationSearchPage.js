@@ -3,7 +3,7 @@ import "../assets/css/searchStyle.css";
 
 export default function GeoLocationSearchPage() {
   return (
-    <div classNameName="container">
+    <div className="container">
       <div className="row">
         <div className="col-lg-12 card-margin">
           <div className="card search-form">
@@ -40,9 +40,9 @@ export default function GeoLocationSearchPage() {
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                             className="feather feather-search"
                           >
                             <circle cx="11" cy="11" r="8"></circle>

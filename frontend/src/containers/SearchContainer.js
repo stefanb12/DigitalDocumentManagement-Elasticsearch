@@ -1,8 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import SearchPage from "../pages/SearchPage";
+import SearchService from "../services/SearchService";
 
 export default function SearchContainer() {
-  useEffect(() => {}, []);
+  const handleSearch = async (queryData) => {
+    console.log(queryData);
+    // SearchService.search(queryData)
+    //   .then((response) => {
+    //     alert(response.data);
+    //   })
+    //   .catch((error) => {
+    //     alert(error);
+    //   });
+  };
 
-  return <SearchPage />;
+  return <SearchPage search={handleSearch} />;
 }
