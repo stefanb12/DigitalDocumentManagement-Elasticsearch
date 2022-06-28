@@ -8,7 +8,6 @@ import elasticsearch.backend.dto.RequiredHighlight;
 import elasticsearch.backend.dto.ResultData;
 import elasticsearch.backend.model.IndexUnit;
 import elasticsearch.backend.model.enumeration.SearchType;
-import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;

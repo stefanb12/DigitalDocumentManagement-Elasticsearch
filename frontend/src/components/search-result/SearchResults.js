@@ -28,7 +28,7 @@ export default function SearchResults(props) {
             <SearchResultItem
               key={index}
               searchResult={searchResult}
-              lastSearchResult={searchResults.length === index - 1}
+              lastSearchResult={searchResults.length - 1 === index}
             />
           ))}
         </div>

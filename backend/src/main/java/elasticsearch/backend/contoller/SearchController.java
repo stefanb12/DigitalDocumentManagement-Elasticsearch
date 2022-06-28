@@ -38,7 +38,6 @@ public class SearchController {
         if (geoQueryData == null || geoQueryData.getLatitude().equals("") || geoQueryData.getLongitude().equals("") || geoQueryData.getDistance().equals("")) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
-
         return new ResponseEntity<>(searchService.geoSearch(geoQueryData), HttpStatus.OK);
     }
 }
