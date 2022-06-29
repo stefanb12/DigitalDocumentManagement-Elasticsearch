@@ -8,7 +8,8 @@ import elasticsearch.backend.model.IndexUnit;
 import elasticsearch.backend.model.enumeration.DegreeOfEducation;
 import elasticsearch.backend.repository.CVApplicationRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.elasticsearch.common.recycler.Recycler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,8 @@ import java.util.regex.Pattern;
 @Slf4j
 @Service
 public class IndexService {
+
+    Logger logger = LoggerFactory.getLogger(IndexService.class);
 
     private final ElasticsearchOperations operations;
     private final FileService fileService;
@@ -50,8 +53,9 @@ public class IndexService {
             indexUnit.setEmail(model.getEmail());
             indexUnit.setAddress(model.getAddress());
             indexUnit.setDegreeOfEducation(DegreeOfEducation.valueOf(model.getDegreeOfEducation()));
-            indexUnit.setGeoPoint(new GeoPoint(model.getLatitude(),model.getLongitude()));
+            indexUnit.setGeoPoint(new GeoPoint(model.getLatitude(), model.getLongitude()));
             operations.save(indexUnit);
+            logger.info("File " + nameParts[nameParts.length - 1] + " successfully uploaded! Address: " + model.getAddress());
 
             CVApplication cvApplication = new CVApplication();
             cvApplication.setName(model.getName());

@@ -18,9 +18,7 @@ export default function SearchResults(props) {
             ) : (
               <> About {searchResults.length} results </>
             )}
-            <small className="text-success">
-              ({props.searchTime} seconds){" "}
-            </small>
+            <small className="text-success">({props.searchTime}) </small>
           </h6>
           <hr className="nomargin-bottom margin-top-10" />
 

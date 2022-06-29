@@ -44,14 +44,15 @@ public class SearchService {
         requiredHighlights.add(new RequiredHighlight(queryData.getFieldName(), queryData.getValue()));
 
         for (int i = 1; i < request.size(); i++) {
+            QueryData previousQueryData = request.get(i-1);
             QueryData currentQueryData = request.get(i);
             QueryBuilder currentQuery = queryService.buildQuery(isPhraseSearch(queryData.getValue()) ? SearchType.PHRASE : SearchType.REGULAR,
                     currentQueryData.getFieldName(), currentQueryData.getValue());
             BoolQueryBuilder builder = QueryBuilders.boolQuery();
-            if (currentQueryData.getOperator().equals("AND")) {
+            if (previousQueryData.getOperator().equals("AND")) {
                 builder.must(query);
                 builder.must(currentQuery);
-            } else if (currentQueryData.getOperator().equals("OR")) {
+            } else if (previousQueryData.getOperator().equals("OR")) {
                 builder.should(query);
                 builder.should(currentQuery);
             }
@@ -69,7 +70,6 @@ public class SearchService {
 
         return getResults(query, requiredHighlights);
     }
-
 
     private List<ResultData> getResults(QueryBuilder query, List<RequiredHighlight> requiredHighlights) {
         if(query == null) {

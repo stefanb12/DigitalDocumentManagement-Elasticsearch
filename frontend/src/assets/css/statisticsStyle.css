@@ -1,0 +1,10 @@
+.statistics-frame {
+  width: 900px;
+  height: 600px;
+  margin-left: 100px;
+}
+
+.statistics-header {
+  text-align: center;
+  color: #666;
+}
