@@ -2,7 +2,7 @@
 Indexing and searching CV documents using Elasticsearch.
 
 ## Architecture
-<img src="architecture/Architecture.png" />
+<img src="images/architecture.png" />
 
 ## Technologies
 * ELK Stack (Elasticsearch, Logstash, Kibana)
